@@ -40,3 +40,14 @@ unemp <- unemp |>
 unemp_recent <- unemp |>
   mutate(
     unemp_recent = date >= as.Date("2015-01-01"))
+
+#Mean, max, min by region
+unemp_summary <- unemp |>
+  group_by(region) |>
+  summarize(
+    mean_rate = mean(unemployment_rate, na.rm = TRUE),
+    min_rate  = min(unemployment_rate, na.rm = TRUE),
+    max_rate  = max(unemployment_rate, na.rm = TRUE)
+  )
+
+head(unemp_summary)
