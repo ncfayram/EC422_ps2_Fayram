@@ -33,3 +33,10 @@ unemp <- unemp |>
   group_by(region) |>
   mutate(unemployment_rate_change = unemployment_rate - lag(unemployment_rate)) |>
   ungroup()
+
+#Recent Data
+
+#Post 2015 Observations
+unemp_recent <- unemp |>
+  mutate(
+    unemp_recent = date >= as.Date("2015-01-01"))
