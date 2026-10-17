@@ -61,13 +61,13 @@ unemp_top_increases <- unemp |>
 unemp_top_decreases <- unemp |>
   slice_min(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
 
+#All that with no covid
 unemp_no_covid <- unemp |>
   filter(lubridate::year(date) != 2020)
-# Five largest month-over-month increases (plus ties)
+
 unemp_top_increases_no_covid <- unemp_no_covid |>
   slice_max(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
 
-# Five largest month-over-month decreases (plus ties)
 unemp_top_decreases_no_covid <- unemp_no_covid |>
   slice_min(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
 
@@ -82,4 +82,41 @@ ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
   theme_minimal() +
   facet_wrap(~region, axes = "all")
 
+#Bar chart
+ggplot(unemp_summary,
+       aes(x = fct_reorder(region, mean_rate),
+           y = mean_rate)) +
+  geom_col(fill = "skyblue") +
+  labs(
+    title = "Mean Unemployment Rate by Region",
+    x = "Region",
+    y = "Mean Unemployment Rate (%)"
+  ) +
+  theme_minimal()
+
+#Last graph
+unemployment_rate
+ggplot(unemp_recent, aes(x = date, y = unemployment_rate_change, color = region)) +
+  geom_line() +
+  labs(
+    title = "Monthly Unemployment Rate Change by Region",
+    x = "Date",
+    y = "Monthly Unemployment Rate Change",
+    color = "Region",
+  ) +
+  theme_minimal()
+
+# Last graph
+unemp_covid <- unemp |>
+  filter(date >= as.Date("2019-01-01"))
+ggplot(unemp_covid,
+       aes(x = date, y = unemployment_rate_change, color = region)) +
+  geom_line() +
+  labs(
+    title = "Monthly Unemployment Rate Change by Region (2019 Onward)",
+    x = "Date",
+    y = "Monthly Unemployment Rate Change (%)",
+    color = "Region"
+  ) +
+  theme_minimal()
 
