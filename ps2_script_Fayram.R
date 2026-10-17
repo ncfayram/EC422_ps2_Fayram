@@ -14,6 +14,7 @@ unemp <- unemp_raw |>
       symbol == "TXUR" ~ "Texas"
     )
   )
+head(unemp)
 
 #Wrangling
 unemp <- unemp |>
