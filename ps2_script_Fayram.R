@@ -51,3 +51,23 @@ unemp_summary <- unemp |>
   )
 
 head(unemp_summary)
+
+#Slices
+# Five largest month-over-month increases (plus ties)
+unemp_top_increases <- unemp |>
+  slice_max(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
+
+# Five largest month-over-month decreases (plus ties)
+unemp_top_decreases <- unemp |>
+  slice_min(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
+
+unemp_no_covid <- unemp |>
+  filter(lubridate::year(date) != 2020)
+# Five largest month-over-month increases (plus ties)
+unemp_top_increases_no_covid <- unemp_no_covid |>
+  slice_max(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
+
+# Five largest month-over-month decreases (plus ties)
+unemp_top_decreases_no_covid <- unemp_no_covid |>
+  slice_min(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
+
