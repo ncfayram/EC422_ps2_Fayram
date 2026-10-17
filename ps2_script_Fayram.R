@@ -71,3 +71,15 @@ unemp_top_increases_no_covid <- unemp_no_covid |>
 unemp_top_decreases_no_covid <- unemp_no_covid |>
   slice_min(order_by = unemployment_rate_change, n = 5, with_ties = TRUE)
 
+#Line plot
+ggplot(unemp, aes(x = date, y = unemployment_rate, color = region)) +
+  geom_line() +     
+  labs(
+    title = "Unemployment Rate by Region", 
+    x = "Date",
+    y = "Unemployment Rate (%)",
+    color = "Region") +
+  theme_minimal() +
+  facet_wrap(~region, axes = "all")
+
+
